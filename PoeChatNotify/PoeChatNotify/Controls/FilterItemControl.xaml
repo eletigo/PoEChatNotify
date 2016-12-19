@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="eletigo.PoeChatNotify.Controls.FilterItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Name="ucMain"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <GroupBox>
+        <GroupBox.Header>
+            <StackPanel Orientation="Horizontal">
+                <CheckBox x:Name="cbxHeader" IsChecked="{Binding Path=IsFilterEnabled, ElementName=ucMain}" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Path=Header, ElementName=ucMain}" VerticalAlignment="Center" Margin="5,0,0,0"></TextBlock>
+            </StackPanel>
+        </GroupBox.Header>
+        <Grid>
+            <CheckBox x:Name="RegexChecker" IsChecked="{Binding Path=IsRegexEnabled, ElementName=ucMain}" HorizontalAlignment="Left" Margin="10,10,0,0" Content="Regex pattern is matched (C#)" VerticalAlignment="Top">
+                <CheckBox.Style>
+                    <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsChecked, ElementName=cbxHeader}" Value="False">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </CheckBox.Style>
+            </CheckBox>
+            <TextBox Text="{Binding Path=PatternText, ElementName=ucMain}" Height="23" Margin="10,31,10,0" TextWrapping="Wrap" VerticalAlignment="Top">
+                <TextBox.Style>
+                    <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=IsChecked, ElementName=RegexChecker}" Value="True">
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsChecked, ElementName=RegexChecker}" Value="False">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=IsChecked, ElementName=cbxHeader}" Value="False">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Grid>
+    </GroupBox>
+</UserControl>

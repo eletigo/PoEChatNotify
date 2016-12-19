@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="eletigo.PoeChatNotify.Controls.PoeListItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Name="ucMain"
+             d:DesignHeight="102.241" d:DesignWidth="537.862">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="IsTabStop" Value="False"/>
+                <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+                <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border BorderThickness="1" BorderBrush="DarkGray" CornerRadius="5">
+        <Grid>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="5,0">
+                <TextBox Text="{Binding Path=Date, ElementName=ucMain}" ToolTip="Date" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" VerticalAlignment="Bottom"/>
+                <TextBox Text="{Binding Path=Type, ElementName=ucMain}" ToolTip="Domain" FontSize="14" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" VerticalAlignment="Bottom"/>
+                <TextBox Text="{Binding Path=Direction, ElementName=ucMain}" FontSize="14" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" VerticalAlignment="Bottom">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="Unknown">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <TextBox Text="{Binding Path=GuildName, ElementName=ucMain}" ToolTip="Guild Name" FontSize="14" Foreground="{DynamicResource {x:Static SystemColors.ControlDarkDarkBrushKey}}" VerticalAlignment="Bottom">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <TextBox Text="{Binding Path=UserName, ElementName=ucMain}" ToolTip="{Binding Path=UserName, ElementName=ucMain}" FontWeight="Bold" FontSize="14" VerticalAlignment="Bottom"/>
+            </StackPanel>
+            <TextBox Text="{Binding Path=Message, ElementName=ucMain, Mode=OneWay}" ToolTip="{Binding Path=Message, ElementName=ucMain}" Margin="5,19,5,5" TextWrapping="Wrap" BorderThickness="0"/>
+        </Grid>
+    </Border>
+</UserControl>

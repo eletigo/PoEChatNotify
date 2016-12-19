@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="eletigo.PoeChatNotify.Controls.PoeBalloon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             Name="ucMain"
+             mc:Ignorable="d" Width="360">
+    <Border BorderThickness="3">
+        <Grid>
+            <Grid Background="#FFB2B2B2" MouseEnter="Grid_MouseEnter" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                <TextBlock Text="{Binding Path=Title, ElementName=ucMain}" VerticalAlignment="Top" Margin="10,5,26,0" FontWeight="Bold" TextTrimming="CharacterEllipsis" FontSize="14"/>
+                <TextBlock Text="{Binding Path=Message, ElementName=ucMain}" Margin="10,29,10,10" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+            </Grid>
+            <TextBlock Text="&#10006;" HorizontalAlignment="Right" VerticalAlignment="Top" Width="16" Height="16" TextAlignment="Center" Margin="0,5,5,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" Cursor="Hand">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <Trigger Property="TextBlock.IsMouseOver" Value="True">
+                                <Setter Property="TextBlock.Foreground" Value="Red"></Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+    </Border>
+</UserControl>

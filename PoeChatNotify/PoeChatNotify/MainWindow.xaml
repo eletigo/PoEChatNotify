@@ -1,0 +1,65 @@
+﻿<Window x:Class="eletigo.PoeChatNotify.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:user="clr-namespace:eletigo.PoeChatNotify.Controls"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        mc:Ignorable="d"
+        Title="PoE Chat Notify"
+        Height="360" Width="480"
+        MinWidth="480" MinHeight="200"
+        Closing="Window_Closing" StateChanged="Window_StateChanged" Loaded="Window_Loaded" Activated="Window_Activated">
+    <Grid>
+        <ListView x:Name="lbxChat" Margin="10,34,10,10" SelectionMode="Single"
+                                    HorizontalContentAlignment="Stretch"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="lbxChat_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate xmlns:tmp="clr-namespace:eletigo.PoeChatNotify.Model"  DataType="tmp:MessageItem">
+                    <user:PoeListItem Date="{Binding Date}" Type="{Binding Type}" Margin="0,0,2,3"
+                                           Direction="{Binding Direction}" GuildName="{Binding GuildName}"
+                                           UserName="{Binding UserName}" Message="{Binding Message}" Background="White">
+                        <user:PoeListItem.ContextMenu>
+                            <ContextMenu >
+                                <MenuItem Header="Copy:" Focusable="False" IsHitTestVisible="False" IsTabStop="False"/>
+                                <MenuItem Header="  - Whisper user" ToolTip="Copy whisper user.&#x0d;&#x0a;Example: @user_name" Icon="@" Click="MenuItemWhisperUser_Click" />
+                                <MenuItem Header="  - Invite user" ToolTip="Copy invite command.&#x0d;&#x0a;Example: /invite user_name"  Click="MenuItemInviteUser_Click"/>
+                                <Separator/>
+                                <MenuItem Header="Clear List" Click="MenuItemClearLict_Click"/>
+                            </ContextMenu>
+                        </user:PoeListItem.ContextMenu>
+                    </user:PoeListItem>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Clear List" Click="MenuItemClearLict_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
+        <tb:TaskbarIcon x:Name="tbiTaskbarIcon" Visibility="Visible"
+                        ToolTipText="PoE Chat Notify"
+                        ToolTip="PoE Chat Notify" TrayLeftMouseDown="tbiTaskbarIcon_TrayLeftMouseDown">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="PoE Chat Notify" Click="MenuItemShowWindow_Click" />
+                    <Separator/>
+                    <MenuItem x:Name="miNitificationChecker" Header="Notification" IsCheckable="True" Click="miNitificationChecker_Click" />
+                    <MenuItem Header="Options" Click="MenuItemSettings_Click" />
+                    <Separator/>
+                    <MenuItem Header="Exit" Click="MenuItemExit_Click" />
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+        <Button x:Name="btnSettings" Content="Settings" HorizontalAlignment="Right" Margin="0,7,10,0" VerticalAlignment="Top" Width="75" Click="btnSettings_Click"/>
+        <Border x:Name="Indicator" ToolTip="Scanning Client.txt is stoped!\nPress to start." CornerRadius="10" Background="LightSlateGray" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Height="16" Width="16" MouseLeftButtonDown="Indicator_MouseLeftButtonDown" Cursor="Hand" />
+        <CheckBox x:Name="cbxFilterGlobal" Content="#" HorizontalAlignment="Left" Margin="43,10,0,0" VerticalAlignment="Top" ToolTip="Global"/>
+        <CheckBox x:Name="cbxFilterParty" Content="%" HorizontalAlignment="Left" Margin="81,10,0,0" VerticalAlignment="Top" ToolTip="Party"/>
+        <CheckBox x:Name="cbxFilterWhisper" Content="@" HorizontalAlignment="Left" Margin="123,10,0,0" VerticalAlignment="Top" ToolTip="Whisper"/>
+        <CheckBox x:Name="cbxFilterTrade" Content="$" HorizontalAlignment="Left" Margin="167,10,0,0" VerticalAlignment="Top" ToolTip="Trade"/>
+        <CheckBox x:Name="cbxFilterGuild" Content="&amp;" HorizontalAlignment="Left" Margin="207,10,0,0" VerticalAlignment="Top" ToolTip="Guild"/>
+    </Grid>
+</Window>
+
+
+
