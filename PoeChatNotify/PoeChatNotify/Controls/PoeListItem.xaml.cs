@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using eletigo.PoeChatNotify.Model;
-using eletigo.PoeChatNotify.Utility;
 
 namespace eletigo.PoeChatNotify.Controls {
 	/// <summary>
@@ -26,18 +24,17 @@ namespace eletigo.PoeChatNotify.Controls {
 		private static readonly DependencyProperty MessageProperty =
 			DependencyProperty.Register("Message", typeof(string), typeof(PoeListItem),
 				new FrameworkPropertyMetadata("Message"));
+		private static readonly DependencyProperty IsErrorProperty =
+			DependencyProperty.Register("IsError", typeof(bool), typeof(PoeListItem),
+				new FrameworkPropertyMetadata(false));
 
 		public string Date {
-			get { return (string) GetValue(DateProperty); }
+			get { return (string)GetValue(DateProperty); }
 			set { SetValue(DateProperty, value); }
 		}
 		public object Type {
 			get { return GetValue(TypeProperty); }
-			set {
-				if (value is MessageType)
-					value = ((MessageType) value).GetDescription();
-				SetValue(TypeProperty, value);
-			}
+			set { SetValue(TypeProperty, value); }
 		}
 		public string Direction {
 			get { return (string)GetValue(DirectionProperty); }
@@ -54,6 +51,11 @@ namespace eletigo.PoeChatNotify.Controls {
 		public string Message {
 			get { return (string)GetValue(MessageProperty); }
 			set { SetValue(MessageProperty, value); }
+		}
+
+		public bool IsError {
+			get { return (bool)GetValue(IsErrorProperty); }
+			set { SetValue(IsErrorProperty, value); }
 		}
 		#endregion
 

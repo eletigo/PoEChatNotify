@@ -85,6 +85,9 @@
     <Compile Include="Controls\PoeListItem.xaml.cs">
       <DependentUpon>PoeListItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Sprite.xaml.cs">
+      <DependentUpon>Sprite.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Managers\TrayManager.cs" />
     <Compile Include="Monitors\PoeMonitor.cs" />
     <Compile Include="Monitors\ProcessChangedEventArgs.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utility\BitmapExtension.cs" />
     <Compile Include="Utility\EnumExtension.cs" />
     <Compile Include="Utility\User32.cs" />
     <Compile Include="Utility\User32.Poe.cs" />
@@ -119,6 +123,10 @@
     <Page Include="Controls\PoeListItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Sprite.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -194,6 +202,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toast_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toast_bg_top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toast_bg_bottom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toast_bg_center.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toast_bg_top_dis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

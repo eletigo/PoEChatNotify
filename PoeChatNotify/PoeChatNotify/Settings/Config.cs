@@ -37,6 +37,9 @@ namespace eletigo.PoeChatNotify.Settings {
 		[JsonProperty("is_notify_when_poe_chat_notify_is_active")]
 		public bool IsNotifyWhenPoeChatNotifyIsActive { get; set; }
 
+		[JsonProperty("is_notify_when_disconnect")]
+		public bool IsNotifyWhenDisconnect { get; set; } = true;
+
 		/// <summary>
 		/// 0 - PoE game
 		/// 1 - PoE Chat Notify
@@ -54,7 +57,10 @@ namespace eletigo.PoeChatNotify.Settings {
 		public int ClickCopyToClipboard { get; set; }
 
 		[JsonProperty("is_play_sound")]
-		public bool IsPlaySound { get; set; } = true;
+		public bool IsPlaySoundOnMessage { get; set; } = true;
+
+		[JsonProperty("is_play_sound_on_disconnect")]
+		public bool IsPlaySoundOnDisconnect { get; set; } = true;
 
 		[JsonProperty("is_custom_sound")]
 		public bool IsCustomSound { get; set; }

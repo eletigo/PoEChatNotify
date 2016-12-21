@@ -3,20 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:eletigo.PoeChatNotify.Controls"
              Name="ucMain"
-             mc:Ignorable="d" Width="360">
-    <Border BorderThickness="3">
+             mc:Ignorable="d"
+             d:DesignHeight="95"
+             MaxHeight="128"
+             Width="358">
+    <Border>
         <Grid>
-            <Grid Background="#FFB2B2B2" MouseEnter="Grid_MouseEnter" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-                <TextBlock Text="{Binding Path=Title, ElementName=ucMain}" VerticalAlignment="Top" Margin="10,5,26,0" FontWeight="Bold" TextTrimming="CharacterEllipsis" FontSize="14"/>
-                <TextBlock Text="{Binding Path=Message, ElementName=ucMain}" Margin="10,29,10,10" TextWrapping="Wrap" TextTrimming="WordEllipsis"/>
+            <Grid MouseEnter="Grid_MouseEnter" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                <local:Sprite x:Name="sBG" />
+                <TextBlock Text="{Binding Path=Title, ElementName=ucMain}" VerticalAlignment="Top" Margin="41,5,26,0" FontWeight="Bold" TextTrimming="CharacterEllipsis" FontSize="14" Foreground="#FFE7B477">
+                    <TextBlock.Effect>
+                        <DropShadowEffect BlurRadius="0" Direction="0" ShadowDepth="1"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock Text="{Binding Path=Message, ElementName=ucMain}" Margin="20,34,8,8" TextWrapping="Wrap" TextTrimming="WordEllipsis" Foreground="#FFB2701D"/>
             </Grid>
-            <TextBlock Text="&#10006;" HorizontalAlignment="Right" VerticalAlignment="Top" Width="16" Height="16" TextAlignment="Center" Margin="0,5,5,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" Cursor="Hand">
+            <TextBlock Text="&#10006;" HorizontalAlignment="Right" VerticalAlignment="Top" Width="16" Height="16" TextAlignment="Center" Margin="0,5,5,0" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" Cursor="Hand" FontWeight="Bold">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Style.Triggers>
                             <Trigger Property="TextBlock.IsMouseOver" Value="True">
-                                <Setter Property="TextBlock.Foreground" Value="Red"></Setter>
+                                <Setter Property="TextBlock.Foreground" Value="#FFB73232"></Setter>
+                            </Trigger>
+                            <Trigger Property="TextBlock.IsMouseOver" Value="False">
+                                <Setter Property="TextBlock.Foreground" Value="#FFE7B477"></Setter>
                             </Trigger>
                         </Style.Triggers>
                     </Style>

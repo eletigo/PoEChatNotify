@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System.Drawing;
+using System.Windows;
 using System.Windows.Input;
 using Hardcodet.Wpf.TaskbarNotification;
+using POETradeHelper.Utility;
 
 namespace eletigo.PoeChatNotify.Controls {
 	/// <summary>
@@ -28,9 +30,27 @@ namespace eletigo.PoeChatNotify.Controls {
 		}
 		#endregion
 
+		private bool _isDisconnect;
+		public bool IsDisconnect {
+			get { return _isDisconnect; }
+			set {
+				_isDisconnect = value;
+				_setHeader(_isDisconnect);
+			}
+		}
+
+		private void _setHeader(bool isDis) {
+			sBG.Top = !isDis ?
+				((Bitmap)Properties.Resources.ResourceManager.GetObject("ToastBGTop")).ToBitmapSource() :
+				((Bitmap)Properties.Resources.ResourceManager.GetObject("ToastBGTopDis")).ToBitmapSource();
+		}
+
 		public PoeBalloon() {
 			InitializeComponent();
 			TaskbarIcon.AddBalloonClosingHandler(this, OnBalloonClosing);
+
+			sBG.Top = ((Bitmap)Properties.Resources.ResourceManager.GetObject("ToastBGTop")).ToBitmapSource();
+			sBG.Center = ((Bitmap)Properties.Resources.ResourceManager.GetObject("ToastBGCenter")).ToBitmapSource();
 		}
 
 		private void OnBalloonClosing(object sender, RoutedEventArgs e) {

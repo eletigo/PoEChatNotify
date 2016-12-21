@@ -131,6 +131,7 @@ namespace eletigo.PoeChatNotify {
 		}
 
 		private static bool _isMessageValid(MessageItem item) {
+			if (!Config.Instance.Filters.ContainsKey(item.Type)) return false;
 			var filter = Config.Instance.Filters[item.Type];
 			if (!filter.IsEnabled) return false;
 			return !filter.IsRegexEnabled || Regex.IsMatch(item.Message, filter.RegexPattern);
@@ -142,7 +143,7 @@ namespace eletigo.PoeChatNotify {
 				if (e.MessageItem.Direction == MessageDirection.To) return;
 
 				// Filter
-				if (!_isMessageValid(e.MessageItem)) return;
+				if (!e.MessageItem.IsDisconnect && !_isMessageValid(e.MessageItem)) return;
 
 				// Chat List
 				lbxChat.Items.Add(e.MessageItem);
@@ -152,6 +153,7 @@ namespace eletigo.PoeChatNotify {
 
 				// Notification
 				if (!Config.Instance.IsNotificationsEnabled) return;
+				if (e.MessageItem.IsDisconnect && !Config.Instance.IsNotifyWhenDisconnect) return;
 				if (Config.Instance.IsNotifyOnlyWhenPoEIsInactive && User32.IsPoeInForeground()) return;
 
 				// Tray Icon Notify
@@ -159,17 +161,22 @@ namespace eletigo.PoeChatNotify {
 				_updateTrayIcon();
 				_poe.Scan();
 
-				var balloon = new PoeBalloon {
-					Title = $"{e.MessageItem.Type.GetDescription()}" +
+				string title;
+				if (!e.MessageItem.IsDisconnect)
+					title = $"{e.MessageItem.Type.GetDescription()}" +
 							$"{(!string.IsNullOrEmpty(e.MessageItem.GuildName) ? e.MessageItem.GuildName + " " : "")}" +
-							$"{e.MessageItem.UserName}",
-					Message = e.MessageItem.Message
+							$"{e.MessageItem.UserName}";
+				else title = $"{e.MessageItem.UserName}";
+
+				var balloon = new PoeBalloon {
+					Title = title,
+					Message = e.MessageItem.Message,
+					IsDisconnect = e.MessageItem.IsDisconnect
 				};
 				balloon.Click += (o, args) => {
 					if (Config.Instance.ClickShowProgram == 0) {
 						User32.BringPoeToForeground();
-					}
-					else if (Config.Instance.ClickShowProgram == 1) {
+					} else if (Config.Instance.ClickShowProgram == 1) {
 						_toggleWindow();
 					}
 
@@ -184,20 +191,26 @@ namespace eletigo.PoeChatNotify {
 				tbiTaskbarIcon.ShowCustomBalloon(balloon, PopupAnimation.Slide, dur);
 
 				// Play Sound
-				if (!Config.Instance.IsPlaySound) return;
+				if (!e.MessageItem.IsDisconnect) {
+					if (!Config.Instance.IsPlaySoundOnMessage) return;
+				} else {
+					if (!Config.Instance.IsPlaySoundOnDisconnect) return;
+				}
 				if (Config.Instance.IsCustomSound && File.Exists(Config.Instance.CustomSoundPath)) {
 					try {
 						_media.Open(new Uri(Config.Instance.CustomSoundPath));
 						_media.Volume = Config.Instance.CustomSoundVolume;
 						_media.Play();
-					}
-					catch (Exception) {
+					} catch (Exception) {
 						/*custom boop*/
 					}
-				}
-				else {
+				} else {
 					try {
-						new SoundPlayer { Stream = Properties.Resources.NotifySound }.Play();
+						if (!e.MessageItem.IsDisconnect) {
+							new SoundPlayer { Stream = Properties.Resources.NotifySound }.Play();
+						} else {
+							new SoundPlayer { Stream = Properties.Resources.NotifySoundError }.Play();
+						}
 					} catch (Exception) {
 						/*boop*/
 					}
@@ -294,8 +307,7 @@ namespace eletigo.PoeChatNotify {
 				Activate();
 				if (WindowState == WindowState.Minimized)
 					WindowState = WindowState.Normal;
-			}
-			else {
+			} else {
 				Hide();
 			}
 		}
@@ -315,7 +327,7 @@ namespace eletigo.PoeChatNotify {
 		}
 
 		private void _settings_Applied(object sender, EventArgs e) {
-			if (!Config.Instance.IsCustomSound || !Config.Instance.IsPlaySound)
+			if (!Config.Instance.IsCustomSound || !Config.Instance.IsPlaySoundOnMessage)
 				_media.Stop();
 			_updateTrayIcon();
 			_bindingFilterCheckers();

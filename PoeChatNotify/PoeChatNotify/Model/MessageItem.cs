@@ -28,7 +28,9 @@ namespace eletigo.PoeChatNotify.Model {
 	}
 
 	public class MessageItem {
-		private const string Pattern = @"(?<Date>\d{4}/\d{2}/\d{2}\s\d{2}:\d{2}:\d{2})[^\]]+\]\s(?<Type>[$@%#])(?<User>[^:]+):\s(?<Message>.*)";
+		private const string DisconnectName = "Abnormal disconnect";
+
+		private const string Pattern = @"(?<Date>\d{4}/\d{2}/\d{2}\s\d{2}:\d{2}:\d{2})[^\]]+\]\s(?<Type>[$@%#]|)(?<User>[^:]+):\s(?<Message>.*)";
 
 		private const string PatternFrom = @"^(From |От кого |De )";
 		private const string PatternTo = @"^(To |Кому |Para )";
@@ -38,6 +40,8 @@ namespace eletigo.PoeChatNotify.Model {
 		public DateTime Date { get; set; }
 		public MessageType Type { get; set; }
 		public MessageDirection Direction { get; set; }
+
+		public bool IsDisconnect => Type == MessageType.Unknown && UserName == DisconnectName;
 
 		public string GuildName { get; set; }
 		public string UserName { get; set; }

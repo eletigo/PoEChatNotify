@@ -33,11 +33,13 @@ namespace eletigo.PoeChatNotify {
 
 			cbxNotifyOnlyWhenPoEIsInactive.IsChecked = Config.Instance.IsNotifyOnlyWhenPoEIsInactive;
 			cbxNotifyWhenPoeChatNotifyIsActive.IsChecked = Config.Instance.IsNotifyWhenPoeChatNotifyIsActive;
+			cbxNotifyWhenDisconnect.IsChecked = Config.Instance.IsNotifyWhenDisconnect;
 
 			cbxShowOnClick.SelectedIndex = Config.Instance.ClickShowProgram;
 			cbxCopyOnClick.SelectedIndex = Config.Instance.ClickCopyToClipboard;
 
-			cbxNotifyPlaySound.IsChecked = Config.Instance.IsPlaySound;
+			cbxNotifyPlaySound.IsChecked = Config.Instance.IsPlaySoundOnMessage;
+			cbxNotifyPlaySoundError.IsChecked = Config.Instance.IsPlaySoundOnDisconnect;
 
 			cbxCustonSoundEnable.IsChecked = Config.Instance.IsCustomSound;
 			tbxCustomSoundPath.Text = Config.Instance.CustomSoundPath;
@@ -79,13 +81,17 @@ namespace eletigo.PoeChatNotify {
 				Config.Instance.IsNotifyOnlyWhenPoEIsInactive = (bool)cbxNotifyOnlyWhenPoEIsInactive.IsChecked;
 			if (cbxNotifyWhenPoeChatNotifyIsActive.IsChecked != null)
 				Config.Instance.IsNotifyWhenPoeChatNotifyIsActive = (bool)cbxNotifyWhenPoeChatNotifyIsActive.IsChecked;
+			if (cbxNotifyWhenDisconnect.IsChecked != null)
+				Config.Instance.IsNotifyWhenDisconnect = (bool)cbxNotifyWhenDisconnect.IsChecked;
 
 			Config.Instance.ClickShowProgram = cbxShowOnClick.SelectedIndex;
 			Config.Instance.ClickCopyToClipboard = cbxCopyOnClick.SelectedIndex;
 
 			// Sound
 			if (cbxNotifyPlaySound.IsChecked != null)
-				Config.Instance.IsPlaySound = (bool)cbxNotifyPlaySound.IsChecked;
+				Config.Instance.IsPlaySoundOnMessage = (bool)cbxNotifyPlaySound.IsChecked;
+			if (cbxNotifyPlaySoundError.IsChecked != null)
+				Config.Instance.IsPlaySoundOnDisconnect = (bool)cbxNotifyPlaySoundError.IsChecked;
 
 			if (cbxCustonSoundEnable.IsChecked != null)
 				Config.Instance.IsCustomSound = (bool)cbxCustonSoundEnable.IsChecked;

@@ -17,8 +17,9 @@
             <ListView.ItemTemplate>
                 <DataTemplate xmlns:tmp="clr-namespace:eletigo.PoeChatNotify.Model"  DataType="tmp:MessageItem">
                     <user:PoeListItem Date="{Binding Date}" Type="{Binding Type}" Margin="0,0,2,3"
-                                           Direction="{Binding Direction}" GuildName="{Binding GuildName}"
-                                           UserName="{Binding UserName}" Message="{Binding Message}" Background="White">
+                                      Direction="{Binding Direction}" GuildName="{Binding GuildName}"
+                                      UserName="{Binding UserName}" Message="{Binding Message}"
+                                      IsError="{Binding IsDisconnect}" Background="White">
                         <user:PoeListItem.ContextMenu>
                             <ContextMenu >
                                 <MenuItem Header="Copy:" Focusable="False" IsHitTestVisible="False" IsTabStop="False"/>

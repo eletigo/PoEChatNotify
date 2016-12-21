@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:user="clr-namespace:eletigo.PoeChatNotify.Controls"
         mc:Ignorable="d"
-        MinHeight="374" MinWidth="460"
-        Height="374" Width="460"
+        MinHeight="320" MinWidth="460"
+        Height="320" Width="460"
         Title="Settings">
     <Grid>
         <TabControl Margin="0,0,0,37" TabStripPlacement="Left" >
@@ -24,7 +24,7 @@
                         <CheckBox x:Name="cbxAutoDetect" Content="Automatic detection" ToolTip="Automatic detection Client.txt when PoE is run." HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
                         <Button x:Name="btnOpenFileDialogClient" Content="&#x22EF;" Margin="0,43,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="23" Click="btnOpenFileDialogClient_Click"/>
                     </Grid>
-                    <TextBlock Text="Version 1.0" Foreground="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="Bold" Margin="0,0,10,0"/>
+                    <TextBlock Text="Version 1.2" Foreground="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="Bold" Margin="0,0,10,0"/>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -35,57 +35,65 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <Grid VerticalAlignment="Top">
-                        <TextBlock Text="Toast notification" VerticalAlignment="Top" Margin="10,5,0,0" FontWeight="Bold"/>
-                        <CheckBox x:Name="cbxNotifyOnlyWhenPoEIsInactive" Content="Notify only when PoE is inactive" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" IsChecked="True" ToolTip="Notify only when Path of Exile game is inactive"/>
-                        <CheckBox x:Name="cbxNotifyWhenPoeChatNotifyIsActive" Content="Notify when PoE Chat Notify is active" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" IsChecked="True" ToolTip="Notify when PoE Chat Notify window is active"/>
-                        <Grid VerticalAlignment="Top" Margin="0,68,0,0">
-                            <TextBlock Text="Duration:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                            <TextBox x:Name="tbxNotifyDuration" VerticalAlignment="Top" Margin="61,0,216,0" PreviewTextInput="TextBox_PreviewTextInput" />
-                            <TextBlock Text="(min 500 ms, 0 = Infinity)" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="135,0,0,0"/>
-                        </Grid>
-                        <GroupBox Header="Click on toast" VerticalAlignment="Top" Margin="0,90,0,0">
-                            <Grid>
-                                <Grid VerticalAlignment="Top">
-                                    <TextBlock Text="Show (if is runned):" ToolTip="Click on toast notification event" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                                    <ComboBox x:Name="cbxShowOnClick" Margin="116,0,10,0" SelectedIndex="0">
-                                        <ComboBoxItem Content="Path of Exile game"/>
-                                        <ComboBoxItem Content="PoE Chat Notify"/>
-                                        <ComboBoxItem Content="Nothing"/>
-                                    </ComboBox>
+                    <TabControl>
+                        <TabItem Header="Toast">
+                            <Grid VerticalAlignment="Top">
+                                <TextBlock Text="Toast notification" VerticalAlignment="Top" Margin="10,5,0,0" FontWeight="Bold"/>
+                                <CheckBox x:Name="cbxNotifyOnlyWhenPoEIsInactive" Content="Notify only when PoE is inactive" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" IsChecked="True" ToolTip="Notify only when Path of Exile game is inactive"/>
+                                <CheckBox x:Name="cbxNotifyWhenPoeChatNotifyIsActive" Content="Notify when PoE Chat Notify is active" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" IsChecked="True" ToolTip="Notify when PoE Chat Notify window is active"/>
+                                <CheckBox x:Name="cbxNotifyWhenDisconnect" Content="Notify when disconnect" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" IsChecked="True" ToolTip="Notify when PoE Chat Notify window is active"/>
+                                <Grid VerticalAlignment="Top" Margin="0,89,0,0">
+                                    <TextBlock Text="Duration:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                    <TextBox x:Name="tbxNotifyDuration" VerticalAlignment="Top" Margin="61,0,216,0" PreviewTextInput="TextBox_PreviewTextInput" />
+                                    <TextBlock Text="(min 500 ms, 0 = Infinity)" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="135,0,0,0"/>
                                 </Grid>
-                                <Grid VerticalAlignment="Top" Margin="0,27,0,0">
-                                    <TextBlock Text="Copy to clipboard:" ToolTip="Click on toast notification event" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                                    <ComboBox x:Name="cbxCopyOnClick" Margin="116,0,10,0" SelectedIndex="0">
-                                        <ComboBoxItem Content="Whisper. (@user_name)"/>
-                                        <ComboBoxItem Content="Invite. (/invite user_name)"/>
-                                        <ComboBoxItem Content="Nothing"/>
-                                    </ComboBox>
-                                </Grid>
+                                <GroupBox Header="Click on toast" VerticalAlignment="Top" Margin="0,116,0,-26">
+                                    <Grid>
+                                        <Grid VerticalAlignment="Top">
+                                            <TextBlock Text="Show (if is runned):" ToolTip="Click on toast notification event" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                            <ComboBox x:Name="cbxShowOnClick" Margin="116,0,10,0" SelectedIndex="0">
+                                                <ComboBoxItem Content="Path of Exile game"/>
+                                                <ComboBoxItem Content="PoE Chat Notify"/>
+                                                <ComboBoxItem Content="Nothing"/>
+                                            </ComboBox>
+                                        </Grid>
+                                        <Grid VerticalAlignment="Top" Margin="0,27,0,0">
+                                            <TextBlock Text="Copy to clipboard:" ToolTip="Click on toast notification event" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                            <ComboBox x:Name="cbxCopyOnClick" Margin="116,0,10,0" SelectedIndex="0">
+                                                <ComboBoxItem Content="Whisper. (@user_name)"/>
+                                                <ComboBoxItem Content="Invite. (/invite user_name)"/>
+                                                <ComboBoxItem Content="Nothing"/>
+                                            </ComboBox>
+                                        </Grid>
+                                    </Grid>
+                                </GroupBox>
                             </Grid>
-                        </GroupBox>
-                    </Grid>
-                    <Grid Margin="0,167,0,0" VerticalAlignment="Top">
-                        <TextBlock Text="Sound of notification" VerticalAlignment="Top" Margin="10,0,0,0" FontWeight="Bold"/>
-                        <CheckBox x:Name="cbxNotifyPlaySound" Content="Play Sound" HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top"/>
-                        <GroupBox Margin="10,42,10,-21" VerticalAlignment="Top" Height="81">
-                            <GroupBox.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <CheckBox x:Name="cbxCustonSoundEnable" VerticalAlignment="Center"/>
-                                    <TextBlock Text="Custom Sound" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                                </StackPanel>
-                            </GroupBox.Header>
-                            <Grid>
-                                <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Sound Path" VerticalAlignment="Top"/>
-                                <TextBox x:Name="tbxCustomSoundPath" Height="23" Margin="10,26,55,0" VerticalAlignment="Top"/>
-                                <Button x:Name="btnOpenFileDialogSound" Content="⋯" Margin="0,26,27,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="23" Click="btnOpenFileDialogSound_Click"/>
-                                <Grid HorizontalAlignment="Right">
-                                    <TextBlock x:Name="tbxValueVolume" VerticalAlignment="Top" HorizontalAlignment="Center" ToolTip="Value of volume"/>
-                                    <Slider x:Name="sdrCustomSoundVolume" ToolTip="Custom sound volume" Orientation="Vertical" Maximum="1" SmallChange="0.01" Value="1" HorizontalAlignment="Right" Margin="0,16,0,0" ValueChanged="sdrCustomSoundVolume_ValueChanged"/>
-                                </Grid>
+                        </TabItem>
+                        <TabItem Header="Sound">
+                            <Grid Margin="0,5,0,0" VerticalAlignment="Top">
+                                <TextBlock Text="Sound of notification" VerticalAlignment="Top" Margin="10,0,0,0" FontWeight="Bold"/>
+                                <CheckBox x:Name="cbxNotifyPlaySound" Content="Play sound on message" HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top"/>
+                                <CheckBox x:Name="cbxNotifyPlaySoundError" Content="Play sound on disconnect" HorizontalAlignment="Left" Margin="10,42,0,0" VerticalAlignment="Top"/>
+                                <GroupBox Margin="10,63,10,-42" VerticalAlignment="Top" Height="81">
+                                    <GroupBox.Header>
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox x:Name="cbxCustonSoundEnable" VerticalAlignment="Center"/>
+                                            <TextBlock Text="Custom sound on message" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                        </StackPanel>
+                                    </GroupBox.Header>
+                                    <Grid>
+                                        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Sound Path" VerticalAlignment="Top"/>
+                                        <TextBox x:Name="tbxCustomSoundPath" Height="23" Margin="10,26,55,0" VerticalAlignment="Top"/>
+                                        <Button x:Name="btnOpenFileDialogSound" Content="⋯" Margin="0,26,27,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="23" Click="btnOpenFileDialogSound_Click"/>
+                                        <Grid HorizontalAlignment="Right">
+                                            <TextBlock x:Name="tbxValueVolume" VerticalAlignment="Top" HorizontalAlignment="Center" ToolTip="Value of volume"/>
+                                            <Slider x:Name="sdrCustomSoundVolume" ToolTip="Custom sound volume" Orientation="Vertical" Maximum="1" SmallChange="0.01" Value="1" HorizontalAlignment="Right" Margin="0,16,0,0" ValueChanged="sdrCustomSoundVolume_ValueChanged"/>
+                                        </Grid>
+                                    </Grid>
+                                </GroupBox>
                             </Grid>
-                        </GroupBox>
-                    </Grid>
+                        </TabItem>
+                    </TabControl>
                 </Grid>
             </TabItem>
             <TabItem Header="Filter">
